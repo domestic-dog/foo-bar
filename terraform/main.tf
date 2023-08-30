@@ -18,11 +18,11 @@ resource "yandex_compute_instance" "v1" {
   }
 
   network_interface {
-    subnet_id = "e9brik6556200e7603s8"
+    subnet_id = data.sops_file.demo-secret.data["subnet_id"]
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file("cloudinit/cloudinit.yaml")}"
   }
   scheduling_policy {
     preemptible = true
